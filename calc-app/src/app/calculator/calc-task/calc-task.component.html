@@ -1,11 +1,31 @@
-<form>
+<form
+  [formGroup]="formGroup"
+  (submit)="onSubmit($event)"
+  (input)="onChange($event)"
+  [class.has-error]="formGroup.controls['result'].invalid && submitAttempt"
+>
   <div>
-    <mat-form-field appearance="fill" [floatLabel]="1 + 1">
-      <mat-label
-        >{{ calcTask.first }} {{ calcTask.operand }}
-        {{ calcTask.second }}</mat-label
+    <mat-form-field
+      appearance="fill"
+      [class.mat-form-field-invalid]="
+        formGroup.get('result').hasError('notEqual') && submitAttempt
+      "
+      [class.mat-form-field-valid]="!submitAttempt"
+    >
+      <mat-label>
+        {{ calcTask.first }} {{ calcTask.operand }} {{ calcTask.second }}
+      </mat-label>
+      <input
+        matInput
+        autocomplete="off"
+        class="formControl"
+        formControlName="result"
+      />
+      <mat-error
+        *ngIf="formGroup.get('result').hasError('notEqual') && submitAttempt"
       >
-      <input matInput />
+        Leider nicht richtig.
+      </mat-error>
     </mat-form-field>
   </div>
   <button mat-raised-button color="primary">Abschicken</button>
