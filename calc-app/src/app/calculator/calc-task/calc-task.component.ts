@@ -20,24 +20,28 @@ export class CalcTaskComponent implements OnInit {
   submitAttempt: boolean;
 
   constructor(private snackBar: MatSnackBar) {
-    this.calcTask = { first: 1, second: 3, operand: '+', result: 4 };
+    this.generateTask();
     this.formGroup = new FormGroup({
       result: new FormControl(
         this.calcTask.result,
-        calcTaskValidator(this.calcTask.result)
+        calcTaskValidator(this.getCalcTaskResult())
       ),
     });
+
     this.submitAttempt = false;
   }
 
   ngOnInit(): void {}
 
   onSubmit(event: Event): void {
-    this.submitAttempt = true;
     console.log('Submit');
     if (this.formGroup.valid) {
       this.openSnackBar('Sehr gut!');
+      this.generateTask();
+      this.reset();
+      this.submitAttempt = false;
     } else {
+      this.submitAttempt = true;
       this.openSnackBar('Versuchs nochmal.');
     }
   }
@@ -50,6 +54,33 @@ export class CalcTaskComponent implements OnInit {
     this.snackBar.open(message, null, {
       duration: 2000,
     });
+  }
+
+  private generateTask() {
+    const first = this.getRandomInt(10);
+    const second = this.getRandomInt(10);
+    const operand = '+';
+    const result = null;
+    this.calcTask = { first, second, operand, result };
+    this.updateValidators();
+  }
+
+  private getRandomInt(max: number) {
+    return Math.floor(Math.random() * Math.floor(max));
+  }
+
+  private updateValidators() {
+    this.formGroup?.controls.result.setValidators(
+      calcTaskValidator(this.getCalcTaskResult())
+    );
+  }
+
+  private getCalcTaskResult(): number {
+    return this.calcTask.first + this.calcTask.second;
+  }
+
+  private reset(): void {
+    this.formGroup.reset();
   }
 }
 
