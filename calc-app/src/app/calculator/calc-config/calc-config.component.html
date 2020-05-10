@@ -22,4 +22,27 @@
       </ng5-slider>
     </div>
   </section>
+  <section>
+    <mat-checkbox
+      name="-"
+      [(ngModel)]="subtractionConfig.active"
+      (change)="onChange($event)"
+    >
+      Substraktion
+    </mat-checkbox>
+    <div *ngIf="subtractionConfig.active">
+      <ng5-slider
+        [(value)]="subtractionConfig.rangeFirst[0]"
+        [(highValue)]="subtractionConfig.rangeFirst[1]"
+        [options]="options"
+      >
+      </ng5-slider>
+      <ng5-slider
+        [(value)]="subtractionConfig.rangeSecond[0]"
+        [(highValue)]="subtractionConfig.rangeSecond[1]"
+        [options]="options"
+      >
+      </ng5-slider>
+    </div>
+  </section>
 </form>

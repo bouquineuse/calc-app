@@ -10,6 +10,7 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 })
 export class CalcConfigComponent implements OnInit {
   @Input() additionConfig: CalcConfig;
+  @Input() subtractionConfig: CalcConfig;
   @Output() selectionChange = new EventEmitter<MatCheckboxChange>();
 
   options: Options = {

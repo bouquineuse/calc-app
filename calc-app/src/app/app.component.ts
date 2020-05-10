@@ -23,14 +23,21 @@ export class AppComponent {
   selectedOperations: string[];
 
   constructor() {
-    this.selectedOperations = ['+'];
+    // this.selectedOperations = Object.getOwnPropertyNames(this.operations);
+    this.selectedOperations = ['+', '-'];
     const addConfig = {
       operand: '+',
       active: true,
       rangeFirst: [0, 100],
       rangeSecond: [0, 100],
     };
-    this.configs = [addConfig];
+    const subConfig = {
+      operand: '-',
+      active: true,
+      rangeFirst: [0, 100],
+      rangeSecond: [0, 100],
+    };
+    this.configs = [addConfig, subConfig];
     this.calcTask = {
       first: null,
       second: null,
@@ -46,15 +53,20 @@ export class AppComponent {
       console.log('Mindestens eine Rechneart muss ausgewählt werden!');
       return;
     }
+    const operand = this.getRandomOperand();
+    const currentConfig = this.configs.filter(
+      (conf) => conf.operand === operand
+    )[0];
+
     const first = this.getRandomInt(
-      this.configs[0].rangeFirst[0],
-      this.configs[0].rangeFirst[1]
+      currentConfig.rangeFirst[0],
+      currentConfig.rangeFirst[1]
     );
     const second = this.getRandomInt(
-      this.configs[0].rangeSecond[0],
-      this.configs[0].rangeSecond[1]
+      currentConfig.rangeSecond[0],
+      currentConfig.rangeSecond[1]
     );
-    const operand = this.getRandomOperand();
+
     const operandFn = this.operations[operand];
 
     const result = null;
@@ -68,7 +80,7 @@ export class AppComponent {
     } else {
       const index = this.selectedOperations.indexOf(evt.source.name);
       if (index > -1) {
-        this.selectedOperations.splice(index);
+        this.selectedOperations.splice(index, 1);
       }
     }
     console.log(this.selectedOperations);
