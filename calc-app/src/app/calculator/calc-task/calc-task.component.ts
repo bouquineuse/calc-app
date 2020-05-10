@@ -36,13 +36,13 @@ export class CalcTaskComponent implements OnInit {
   onSubmit(event: Event): void {
     console.log('Submit');
     if (this.formGroup.valid) {
-      this.openSnackBar('Sehr gut!');
+      this.openSnackBar('Sehr gut!', true);
       this.generateTask();
       this.reset();
       this.submitAttempt = false;
     } else {
       this.submitAttempt = true;
-      this.openSnackBar('Versuchs nochmal.');
+      this.openSnackBar('Versuchs nochmal.', false);
     }
   }
 
@@ -50,9 +50,12 @@ export class CalcTaskComponent implements OnInit {
     this.submitAttempt = false;
   }
 
-  private openSnackBar(message: string) {
+  private openSnackBar(message: string, success: boolean) {
     this.snackBar.open(message, null, {
       duration: 2000,
+      verticalPosition: 'bottom',
+      horizontalPosition: 'center',
+      panelClass: ['feedback-snackbar', success ? 'success' : 'error'],
     });
   }
 
@@ -66,7 +69,7 @@ export class CalcTaskComponent implements OnInit {
   }
 
   private getRandomInt(max: number) {
-    return Math.floor(Math.random() * Math.floor(max));
+    return Math.ceil(Math.random() * Math.floor(max));
   }
 
   private updateValidators() {

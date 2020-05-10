@@ -1,4 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 10px;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+app-root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+snack-bar-container.feedback-snackbar {
+  &.success {
+    color: #1eab1e;
+  }
+
+  &.error {
+    color: #f44336;
+  }
+
+  > .mat-simple-snackbar {
+    justify-content: center;
+  }
+}
