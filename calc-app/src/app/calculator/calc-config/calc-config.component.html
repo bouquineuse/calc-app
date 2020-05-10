@@ -1,7 +1,13 @@
 <form [formGroup]="formGroup">
   <ng5-slider
-    [(value)]="additionConfig.range[0]"
-    [(highValue)]="additionConfig.range[1]"
+    [(value)]="additionConfig.rangeFirst[0]"
+    [(highValue)]="additionConfig.rangeFirst[1]"
+    [options]="options"
+  >
+  </ng5-slider>
+  <ng5-slider
+    [(value)]="additionConfig.rangeSecond[0]"
+    [(highValue)]="additionConfig.rangeSecond[1]"
     [options]="options"
   >
   </ng5-slider>

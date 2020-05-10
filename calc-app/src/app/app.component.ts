@@ -13,16 +13,23 @@ export class AppComponent {
   additionConfig: CalcConfig;
 
   constructor() {
-    this.additionConfig = { operand: 'addition', range: [0, 100] };
+    this.additionConfig = {
+      operand: 'addition',
+      rangeFirst: [0, 100],
+      rangeSecond: [0, 100],
+    };
     this.generateTask();
   }
 
   generateTask() {
     const first = this.getRandomInt(
-      this.additionConfig.range[0],
-      this.additionConfig.range[1]
+      this.additionConfig.rangeFirst[0],
+      this.additionConfig.rangeFirst[1]
     );
-    const second = this.getRandomInt(0, 10);
+    const second = this.getRandomInt(
+      this.additionConfig.rangeSecond[0],
+      this.additionConfig.rangeSecond[1]
+    );
     const operand = '+';
     const result = null;
     this.calcTask = { first, second, operand, result };

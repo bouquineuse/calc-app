@@ -21,7 +21,8 @@ export class CalcConfigComponent implements OnInit {
 
   ngOnInit(): void {
     this.formGroup = new FormGroup({
-      range: new FormControl(this.additionConfig.range),
+      rangeFirst: new FormControl(this.additionConfig.rangeFirst),
+      rangeSecond: new FormControl(this.additionConfig.rangeSecond),
     });
   }
 }
