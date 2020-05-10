@@ -11,10 +11,18 @@ export class AppComponent {
   title = 'Kopfrechen-Trainer';
   calcTask: CalcTask;
   additionConfig: CalcConfig;
+  operations = {
+    '+': (arg1: number, arg2: number) => arg1 + arg2,
+    '-': (arg1: number, arg2: number) => arg1 - arg2,
+    '*': (arg1: number, arg2: number) => arg1 * arg2,
+    '/': (arg1: number, arg2: number) => arg1 / arg2,
+    '√': (arg1: number, arg2: number) => Math.pow(arg2, 1 / arg1),
+    '^': (arg1: number, arg2: number) => Math.pow(arg1, arg2),
+  };
 
   constructor() {
     this.additionConfig = {
-      operand: 'addition',
+      operand: '+',
       rangeFirst: [0, 100],
       rangeSecond: [0, 100],
     };
@@ -30,9 +38,11 @@ export class AppComponent {
       this.additionConfig.rangeSecond[0],
       this.additionConfig.rangeSecond[1]
     );
-    const operand = '+';
+    const operand = this.getRandomOperand();
+    const operandFn = this.operations[operand];
+
     const result = null;
-    this.calcTask = { first, second, operand, result };
+    this.calcTask = { first, second, operand, operandFn, result };
   }
 
   private getRandomInt(min: number, max: number) {
@@ -40,5 +50,10 @@ export class AppComponent {
       Math.round(Math.random() * (Math.floor(max) - Math.floor(min))) +
       Math.floor(min)
     );
+  }
+
+  private getRandomOperand(): string {
+    const operatorOptions = Object.getOwnPropertyNames(this.operations);
+    return operatorOptions[Math.floor(Math.random() * operatorOptions.length)];
   }
 }

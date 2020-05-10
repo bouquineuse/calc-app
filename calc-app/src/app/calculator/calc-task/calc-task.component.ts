@@ -79,7 +79,9 @@ export class CalcTaskComponent implements OnInit, OnChanges {
   }
 
   private getCalcTaskResult(): number {
-    return this.calcTask.first + this.calcTask.second;
+    return [this.calcTask.first, this.calcTask.second].reduce(
+      this.calcTask.operandFn
+    );
   }
 
   private reset(): void {
