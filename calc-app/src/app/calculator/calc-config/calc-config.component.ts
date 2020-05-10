@@ -1,7 +1,7 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Options } from 'ng5-slider';
-import { FormControl, FormGroup } from '@angular/forms';
 import { CalcConfig } from './calc-config.entity';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-calc-config',
@@ -9,8 +9,8 @@ import { CalcConfig } from './calc-config.entity';
   styleUrls: ['./calc-config.component.scss'],
 })
 export class CalcConfigComponent implements OnInit {
-  formGroup: FormGroup;
   @Input() additionConfig: CalcConfig;
+  @Output() selectionChange = new EventEmitter<MatCheckboxChange>();
 
   options: Options = {
     floor: 0,
@@ -19,10 +19,9 @@ export class CalcConfigComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {
-    this.formGroup = new FormGroup({
-      rangeFirst: new FormControl(this.additionConfig.rangeFirst),
-      rangeSecond: new FormControl(this.additionConfig.rangeSecond),
-    });
+  ngOnInit(): void {}
+
+  onChange(evt: MatCheckboxChange): void {
+    this.selectionChange.emit(evt);
   }
 }

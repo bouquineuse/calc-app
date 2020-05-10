@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CalcTask } from './calculator/calc-task/calc-task.entity';
 import { CalcConfig } from './calculator/calc-config/calc-config.entity';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,7 @@ import { CalcConfig } from './calculator/calc-config/calc-config.entity';
 export class AppComponent {
   title = 'Kopfrechen-Trainer';
   calcTask: CalcTask;
-  additionConfig: CalcConfig;
+  configs: CalcConfig[];
   operations = {
     '+': (arg1: number, arg2: number) => arg1 + arg2,
     '-': (arg1: number, arg2: number) => arg1 - arg2,
@@ -19,30 +20,58 @@ export class AppComponent {
     '√': (arg1: number, arg2: number) => Math.pow(arg2, 1 / arg1),
     '^': (arg1: number, arg2: number) => Math.pow(arg1, arg2),
   };
+  selectedOperations: string[];
 
   constructor() {
-    this.additionConfig = {
+    this.selectedOperations = ['+'];
+    const addConfig = {
       operand: '+',
+      active: true,
       rangeFirst: [0, 100],
       rangeSecond: [0, 100],
+    };
+    this.configs = [addConfig];
+    this.calcTask = {
+      first: null,
+      second: null,
+      operand: '',
+      operandFn: null,
+      result: null,
     };
     this.generateTask();
   }
 
-  generateTask() {
+  generateTask(): void {
+    if (this.selectedOperations.length === 0) {
+      console.log('Mindestens eine Rechneart muss ausgewählt werden!');
+      return;
+    }
     const first = this.getRandomInt(
-      this.additionConfig.rangeFirst[0],
-      this.additionConfig.rangeFirst[1]
+      this.configs[0].rangeFirst[0],
+      this.configs[0].rangeFirst[1]
     );
     const second = this.getRandomInt(
-      this.additionConfig.rangeSecond[0],
-      this.additionConfig.rangeSecond[1]
+      this.configs[0].rangeSecond[0],
+      this.configs[0].rangeSecond[1]
     );
     const operand = this.getRandomOperand();
     const operandFn = this.operations[operand];
 
     const result = null;
     this.calcTask = { first, second, operand, operandFn, result };
+  }
+
+  updateSelection(evt: MatCheckboxChange): void {
+    console.log('CHANGE' + evt.checked + ' ' + evt.source.name);
+    if (evt.checked) {
+      this.selectedOperations.push(evt.source.name);
+    } else {
+      const index = this.selectedOperations.indexOf(evt.source.name);
+      if (index > -1) {
+        this.selectedOperations.splice(index);
+      }
+    }
+    console.log(this.selectedOperations);
   }
 
   private getRandomInt(min: number, max: number) {
@@ -53,7 +82,10 @@ export class AppComponent {
   }
 
   private getRandomOperand(): string {
-    const operatorOptions = Object.getOwnPropertyNames(this.operations);
+    let operatorOptions = Object.getOwnPropertyNames(this.operations);
+    operatorOptions = operatorOptions.filter((op) =>
+      this.selectedOperations.includes(op)
+    );
     return operatorOptions[Math.floor(Math.random() * operatorOptions.length)];
   }
 }
