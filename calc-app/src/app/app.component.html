@@ -1,5 +1,5 @@
 <h1>{{ title }}</h1>
-<app-calc-config></app-calc-config>
+<app-calc-config [additionConfig]="additionConfig"></app-calc-config>
 <app-calc-task
   [calcTask]="calcTask"
   (generate)="generateTask()"
