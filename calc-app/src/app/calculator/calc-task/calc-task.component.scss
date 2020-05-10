@@ -8,9 +8,14 @@ form {
       width: 100%;
     }
   }
-}
 
-button {
-  margin-top: 10px;
-  margin-bottom: 50px;
+  > .button-container {
+    display: flex;
+    flex-direction: column;
+
+    > button {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+  }
 }

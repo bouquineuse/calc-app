@@ -50,11 +50,7 @@ export class CalcTaskComponent implements OnInit, OnChanges {
     console.log('Submit');
     if (this.formGroup.valid) {
       this.openSnackBar('Sehr gut!', true);
-      const generateEvent = new GenerateEvent();
-      this.generate.emit(generateEvent);
-      this.updateValidators();
-      this.reset();
-      this.submitAttempt = false;
+      this.triggerNew();
     } else {
       this.submitAttempt = true;
       this.openSnackBar('Versuchs nochmal.', false);
@@ -65,6 +61,10 @@ export class CalcTaskComponent implements OnInit, OnChanges {
     this.submitAttempt = false;
   }
 
+  onClickNew(): void {
+    this.triggerNew();
+  }
+
   private openSnackBar(message: string, success: boolean) {
     this.snackBar.open(message, null, {
       duration: 2000,
@@ -72,6 +72,14 @@ export class CalcTaskComponent implements OnInit, OnChanges {
       horizontalPosition: 'center',
       panelClass: ['feedback-snackbar', success ? 'success' : 'error'],
     });
+  }
+
+  private triggerNew(): void {
+    const generateEvent = new GenerateEvent();
+    this.generate.emit(generateEvent);
+    this.updateValidators();
+    this.reset();
+    this.submitAttempt = false;
   }
 
   private updateValidators() {
