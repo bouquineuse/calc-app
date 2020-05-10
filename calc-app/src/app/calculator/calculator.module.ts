@@ -7,9 +7,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { CalcConfigComponent } from './calc-config/calc-config.component';
+import { Ng5SliderModule } from 'ng5-slider';
 
 @NgModule({
-  declarations: [CalcTaskComponent],
+  declarations: [CalcTaskComponent, CalcConfigComponent],
   imports: [
     CommonModule,
     BrowserAnimationsModule,
@@ -18,7 +20,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatButtonModule,
     ReactiveFormsModule,
     MatSnackBarModule,
+    Ng5SliderModule,
   ],
-  exports: [CalcTaskComponent],
+  exports: [CalcTaskComponent, CalcConfigComponent],
 })
 export class CalculatorModule {}

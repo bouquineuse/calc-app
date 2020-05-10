@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CalcTask } from '../calc-task.entity';
+import { CalcTask } from './calc-task.entity';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {
   FormGroup,
