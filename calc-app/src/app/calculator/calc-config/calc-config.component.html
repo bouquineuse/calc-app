@@ -1,5 +1,5 @@
 <form>
-  <section>
+  <section class="operator-config addition">
     <mat-checkbox
       name="+"
       [(ngModel)]="additionConfig.active"
@@ -22,13 +22,13 @@
       </ng5-slider>
     </div>
   </section>
-  <section>
+  <section class="operator-config subtraction">
     <mat-checkbox
       name="-"
       [(ngModel)]="subtractionConfig.active"
       (change)="onChange($event)"
     >
-      Substraktion
+      Subtraktion
     </mat-checkbox>
     <div *ngIf="subtractionConfig.active">
       <ng5-slider

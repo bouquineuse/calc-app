@@ -1,11 +1,22 @@
-<h1>{{ title }}</h1>
-<app-calc-config
-  [additionConfig]="configs[0]"
-  [subtractionConfig]="configs[1]"
-  (selectionChange)="updateSelection($event)"
-></app-calc-config>
-<app-calc-task
-  *ngIf="selectedOperations.length > 0"
-  [calcTask]="calcTask"
-  (generate)="generateTask()"
-></app-calc-task>
+<mat-toolbar color="primary">
+  <button mat-icon-button (click)="sidenav.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <h1>{{ title }}</h1>
+</mat-toolbar>
+<mat-sidenav-container>
+  <mat-sidenav #sidenav mode="over">
+    <app-calc-config
+      [additionConfig]="configs[0]"
+      [subtractionConfig]="configs[1]"
+      (selectionChange)="updateSelection($event)"
+    ></app-calc-config>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <app-calc-task
+      *ngIf="selectedOperations.length > 0"
+      [calcTask]="calcTask"
+      (generate)="generateTask()"
+    ></app-calc-task>
+  </mat-sidenav-content>
+</mat-sidenav-container>
