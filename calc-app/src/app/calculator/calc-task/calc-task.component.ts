@@ -1,4 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Output,
+  EventEmitter,
+  Input,
+  OnChanges,
+} from '@angular/core';
 import { CalcTask } from './calc-task.entity';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {
@@ -14,30 +21,36 @@ import {
   templateUrl: './calc-task.component.html',
   styleUrls: ['./calc-task.component.scss'],
 })
-export class CalcTaskComponent implements OnInit {
+export class CalcTaskComponent implements OnInit, OnChanges {
+  @Input() calcTask: CalcTask;
+  @Output() public generate = new EventEmitter<GenerateEvent>();
   formGroup: FormGroup;
-  calcTask: CalcTask;
   submitAttempt: boolean;
 
   constructor(private snackBar: MatSnackBar) {
-    this.generateTask();
+    this.submitAttempt = false;
+  }
+
+  ngOnInit(): void {
     this.formGroup = new FormGroup({
       result: new FormControl(
         this.calcTask.result,
         calcTaskValidator(this.getCalcTaskResult())
       ),
     });
-
-    this.submitAttempt = false;
   }
 
-  ngOnInit(): void {}
+  ngOnChanges(): void {
+    this.updateValidators();
+  }
 
   onSubmit(event: Event): void {
     console.log('Submit');
     if (this.formGroup.valid) {
       this.openSnackBar('Sehr gut!', true);
-      this.generateTask();
+      const generateEvent = new GenerateEvent();
+      this.generate.emit(generateEvent);
+      this.updateValidators();
       this.reset();
       this.submitAttempt = false;
     } else {
@@ -57,19 +70,6 @@ export class CalcTaskComponent implements OnInit {
       horizontalPosition: 'center',
       panelClass: ['feedback-snackbar', success ? 'success' : 'error'],
     });
-  }
-
-  private generateTask() {
-    const first = this.getRandomInt(10);
-    const second = this.getRandomInt(10);
-    const operand = '+';
-    const result = null;
-    this.calcTask = { first, second, operand, result };
-    this.updateValidators();
-  }
-
-  private getRandomInt(max: number) {
-    return Math.ceil(Math.random() * Math.floor(max));
   }
 
   private updateValidators() {
@@ -98,3 +98,5 @@ export function calcTaskValidator(val: number): ValidatorFn {
     return null;
   };
 }
+
+class GenerateEvent {}
