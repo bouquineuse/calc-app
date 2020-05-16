@@ -25,23 +25,23 @@ export class AppComponent {
   constructor() {
     this.selectedOperations = Object.getOwnPropertyNames(this.operations);
     const addConfig = {
-      operand: '+',
+      operator: '+',
       active: true,
-      rangeFirst: [0, 100],
-      rangeSecond: [0, 100],
+      rangeFirstOperand: [0, 100],
+      rangeSecondOperand: [0, 100],
     };
     const subConfig = {
-      operand: '-',
+      operator: '-',
       active: true,
-      rangeFirst: [0, 100],
-      rangeSecond: [0, 100],
+      rangeFirstOperand: [0, 100],
+      rangeSecondOperand: [0, 100],
     };
     this.configs = [addConfig, subConfig];
     this.calcTask = {
-      first: null,
-      second: null,
-      operand: '',
-      operandFn: null,
+      firstOperand: null,
+      secondOperand: null,
+      operator: '',
+      operatorFn: null,
       result: null,
     };
     this.generateTask();
@@ -52,24 +52,30 @@ export class AppComponent {
       console.log('Mindestens eine Rechneart muss ausgewählt werden!');
       return;
     }
-    const operand = this.getRandomOperand();
+    const operator = this.getRandomOperator();
     const currentConfig = this.configs.filter(
-      (conf) => conf.operand === operand
+      (conf) => conf.operator === operator
     )[0];
 
-    const first = this.getRandomInt(
-      currentConfig.rangeFirst[0],
-      currentConfig.rangeFirst[1]
+    const firstOperand = this.getRandomInt(
+      currentConfig.rangeFirstOperand[0],
+      currentConfig.rangeFirstOperand[1]
     );
-    const second = this.getRandomInt(
-      currentConfig.rangeSecond[0],
-      currentConfig.rangeSecond[1]
+    const secondOperand = this.getRandomInt(
+      currentConfig.rangeSecondOperand[0],
+      currentConfig.rangeSecondOperand[1]
     );
 
-    const operandFn = this.operations[operand];
+    const operatorFn = this.operations[operator];
 
     const result = null;
-    this.calcTask = { first, second, operand, operandFn, result };
+    this.calcTask = {
+      firstOperand,
+      secondOperand,
+      operator,
+      operatorFn,
+      result,
+    };
   }
 
   public updateSelection(evt: MatCheckboxChange): void {
@@ -92,7 +98,7 @@ export class AppComponent {
     );
   }
 
-  private getRandomOperand(): string {
+  private getRandomOperator(): string {
     let operatorOptions = Object.getOwnPropertyNames(this.operations);
     operatorOptions = operatorOptions.filter((op) =>
       this.selectedOperations.includes(op)

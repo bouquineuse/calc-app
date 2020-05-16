@@ -13,7 +13,8 @@
       [class.mat-form-field-valid]="!submitAttempt"
     >
       <mat-label>
-        {{ calcTask.first }} {{ calcTask.operand }} {{ calcTask.second }}
+        {{ calcTask.firstOperand }} {{ calcTask.operator }}
+        {{ calcTask.secondOperand }}
       </mat-label>
       <input
         matInput

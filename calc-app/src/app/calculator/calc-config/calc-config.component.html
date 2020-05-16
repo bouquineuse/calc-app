@@ -9,14 +9,14 @@
     </mat-checkbox>
     <div *ngIf="additionConfig.active">
       <ng5-slider
-        [(value)]="additionConfig.rangeFirst[0]"
-        [(highValue)]="additionConfig.rangeFirst[1]"
+        [(value)]="additionConfig.rangeFirstOperand[0]"
+        [(highValue)]="additionConfig.rangeFirstOperand[1]"
         [options]="options"
       >
       </ng5-slider>
       <ng5-slider
-        [(value)]="additionConfig.rangeSecond[0]"
-        [(highValue)]="additionConfig.rangeSecond[1]"
+        [(value)]="additionConfig.rangeSecondOperand[0]"
+        [(highValue)]="additionConfig.rangeSecondOperand[1]"
         [options]="options"
       >
       </ng5-slider>
@@ -32,14 +32,14 @@
     </mat-checkbox>
     <div *ngIf="subtractionConfig.active">
       <ng5-slider
-        [(value)]="subtractionConfig.rangeFirst[0]"
-        [(highValue)]="subtractionConfig.rangeFirst[1]"
+        [(value)]="subtractionConfig.rangeFirstOperand[0]"
+        [(highValue)]="subtractionConfig.rangeFirstOperand[1]"
         [options]="options"
       >
       </ng5-slider>
       <ng5-slider
-        [(value)]="subtractionConfig.rangeSecond[0]"
-        [(highValue)]="subtractionConfig.rangeSecond[1]"
+        [(value)]="subtractionConfig.rangeSecondOperand[0]"
+        [(highValue)]="subtractionConfig.rangeSecondOperand[1]"
         [options]="options"
       >
       </ng5-slider>

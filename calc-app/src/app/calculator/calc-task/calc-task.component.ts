@@ -35,7 +35,7 @@ export class CalcTaskComponent implements OnInit, OnChanges {
     this.formGroup = new FormGroup({
       result: new FormControl(
         this.calcTask.result,
-        this.calcTask.operandFn
+        this.calcTask.operatorFn
           ? calcTaskValidator(this.getCalcTaskResult())
           : null
       ),
@@ -89,8 +89,8 @@ export class CalcTaskComponent implements OnInit, OnChanges {
   }
 
   private getCalcTaskResult(): number {
-    return [this.calcTask?.first, this.calcTask?.second].reduce(
-      this.calcTask.operandFn
+    return [this.calcTask?.firstOperand, this.calcTask?.secondOperand].reduce(
+      this.calcTask.operatorFn
     );
   }
 

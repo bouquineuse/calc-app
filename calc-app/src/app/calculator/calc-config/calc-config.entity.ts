@@ -1,6 +1,6 @@
 export interface CalcConfig {
-  operand: string;
+  operator: string;
   active: boolean;
-  rangeFirst: number[];
-  rangeSecond: number[];
+  rangeFirstOperand: number[];
+  rangeSecondOperand: number[];
 }
