@@ -15,16 +15,15 @@ export class AppComponent {
   operations = {
     '+': (arg1: number, arg2: number) => arg1 + arg2,
     '-': (arg1: number, arg2: number) => arg1 - arg2,
-    '*': (arg1: number, arg2: number) => arg1 * arg2,
-    '/': (arg1: number, arg2: number) => arg1 / arg2,
-    '√': (arg1: number, arg2: number) => Math.pow(arg2, 1 / arg1),
-    '^': (arg1: number, arg2: number) => Math.pow(arg1, arg2),
+    // '*': (arg1: number, arg2: number) => arg1 * arg2,
+    // '/': (arg1: number, arg2: number) => arg1 / arg2,
+    // '√': (arg1: number, arg2: number) => Math.pow(arg2, 1 / arg1),
+    // '^': (arg1: number, arg2: number) => Math.pow(arg1, arg2),
   };
   selectedOperations: string[];
 
   constructor() {
-    // this.selectedOperations = Object.getOwnPropertyNames(this.operations);
-    this.selectedOperations = ['+', '-'];
+    this.selectedOperations = Object.getOwnPropertyNames(this.operations);
     const addConfig = {
       operand: '+',
       active: true,
@@ -48,7 +47,7 @@ export class AppComponent {
     this.generateTask();
   }
 
-  generateTask(): void {
+  public generateTask(): void {
     if (this.selectedOperations.length === 0) {
       console.log('Mindestens eine Rechneart muss ausgewählt werden!');
       return;
@@ -73,7 +72,7 @@ export class AppComponent {
     this.calcTask = { first, second, operand, operandFn, result };
   }
 
-  updateSelection(evt: MatCheckboxChange): void {
+  public updateSelection(evt: MatCheckboxChange): void {
     console.log('CHANGE' + evt.checked + ' ' + evt.source.name);
     if (evt.checked) {
       this.selectedOperations.push(evt.source.name);
@@ -86,7 +85,7 @@ export class AppComponent {
     console.log(this.selectedOperations);
   }
 
-  private getRandomInt(min: number, max: number) {
+  private getRandomInt(min: number, max: number): number {
     return (
       Math.round(Math.random() * (Math.floor(max) - Math.floor(min))) +
       Math.floor(min)
