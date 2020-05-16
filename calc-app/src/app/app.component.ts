@@ -49,7 +49,7 @@ export class AppComponent {
 
   public generateTask(): void {
     if (this.selectedOperations.length === 0) {
-      console.log('Mindestens eine Rechneart muss ausgewählt werden!');
+      console.log('Mindestens eine Rechenart muss ausgewählt werden!');
       return;
     }
     const operator = this.getRandomOperator();
@@ -79,7 +79,6 @@ export class AppComponent {
   }
 
   public updateSelection(evt: MatCheckboxChange): void {
-    console.log('CHANGE' + evt.checked + ' ' + evt.source.name);
     if (evt.checked) {
       this.selectedOperations.push(evt.source.name);
     } else {
@@ -88,7 +87,6 @@ export class AppComponent {
         this.selectedOperations.splice(index, 1);
       }
     }
-    console.log(this.selectedOperations);
   }
 
   private getRandomInt(min: number, max: number): number {

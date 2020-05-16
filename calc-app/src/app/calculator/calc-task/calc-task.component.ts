@@ -47,7 +47,6 @@ export class CalcTaskComponent implements OnInit, OnChanges {
   }
 
   onSubmit(event: Event): void {
-    console.log('Submit');
     if (this.formGroup.valid) {
       this.openSnackBar('Sehr gut!', true);
       this.triggerNew();
@@ -102,11 +101,8 @@ export class CalcTaskComponent implements OnInit, OnChanges {
 export function calcTaskValidator(val: number): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     if (val !== control.value) {
-      console.log('val:' + val + 'control.value: ' + control.value);
-      console.log(typeof control.value);
       return { notEqual: true, requiredValue: val };
     }
-    console.log('noerror');
     return null;
   };
 }
