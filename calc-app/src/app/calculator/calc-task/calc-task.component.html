@@ -1,0 +1,39 @@
+<form
+  [formGroup]="formGroup"
+  (submit)="onSubmit($event)"
+  (input)="onChange($event)"
+  [class.has-error]="formGroup.controls['result'].invalid && submitAttempt"
+>
+  <div>
+    <mat-form-field
+      appearance="fill"
+      [class.mat-form-field-invalid]="
+        formGroup.get('result').hasError('notEqual') && submitAttempt
+      "
+      [class.mat-form-field-valid]="!submitAttempt"
+    >
+      <mat-label>
+        {{ calcTask.firstOperand }} {{ calcTask.operator }}
+        {{ calcTask.secondOperand }}
+      </mat-label>
+      <input
+        matInput
+        type="number"
+        autocomplete="off"
+        class="formControl"
+        formControlName="result"
+      />
+      <mat-error
+        *ngIf="formGroup.get('result').hasError('notEqual') && submitAttempt"
+      >
+        Leider nicht richtig.
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="button-container">
+    <button mat-raised-button color="primary">Abschicken</button>
+    <button mat-raised-button type="button" (click)="onClickNew()">
+      Neue Aufgabe
+    </button>
+  </div>
+</form>

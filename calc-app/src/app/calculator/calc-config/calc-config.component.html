@@ -1,0 +1,48 @@
+<form>
+  <section class="operator-config addition">
+    <mat-checkbox
+      name="+"
+      [(ngModel)]="additionConfig.active"
+      (change)="onChange($event)"
+    >
+      Addition
+    </mat-checkbox>
+    <div *ngIf="additionConfig.active">
+      <ng5-slider
+        [(value)]="additionConfig.rangeFirstOperand[0]"
+        [(highValue)]="additionConfig.rangeFirstOperand[1]"
+        [options]="options"
+      >
+      </ng5-slider>
+      <ng5-slider
+        [(value)]="additionConfig.rangeSecondOperand[0]"
+        [(highValue)]="additionConfig.rangeSecondOperand[1]"
+        [options]="options"
+      >
+      </ng5-slider>
+    </div>
+  </section>
+  <section class="operator-config subtraction">
+    <mat-checkbox
+      name="-"
+      [(ngModel)]="subtractionConfig.active"
+      (change)="onChange($event)"
+    >
+      Subtraktion
+    </mat-checkbox>
+    <div *ngIf="subtractionConfig.active">
+      <ng5-slider
+        [(value)]="subtractionConfig.rangeFirstOperand[0]"
+        [(highValue)]="subtractionConfig.rangeFirstOperand[1]"
+        [options]="options"
+      >
+      </ng5-slider>
+      <ng5-slider
+        [(value)]="subtractionConfig.rangeSecondOperand[0]"
+        [(highValue)]="subtractionConfig.rangeSecondOperand[1]"
+        [options]="options"
+      >
+      </ng5-slider>
+    </div>
+  </section>
+</form>
