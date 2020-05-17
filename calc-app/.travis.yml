@@ -1,0 +1,10 @@
+language: generic
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t bouquineuse/calc-app -f Dockerfile.dev .
+
+script:
+  - docker run -e CI=true bouquineuse/calc-app npm run test:ci

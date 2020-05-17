@@ -1,0 +1,16 @@
+FROM node:alpine
+RUN apk update && apk add chromium
+
+ENV CHROME_BIN=/usr/bin/chromium-browser
+
+WORKDIR '/app'
+
+COPY package.json .
+COPY package-lock.json .
+RUN npm install
+RUN npm install puppeteer --only=dev
+
+COPY . .
+
+EXPOSE 80
+CMD npm run start -- --host 0.0.0.0

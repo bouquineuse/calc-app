@@ -1,0 +1,14 @@
+# Ignore everything
+**
+
+# Allow specific files/folders
+!/src/**
+!package.json
+!package-lock.json
+!angular.json
+!tsconfig.json
+!tsconfig.app.json
+
+# For test
+!tsconfig.spec.json
+!karma.conf.js
