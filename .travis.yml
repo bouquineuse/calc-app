@@ -4,6 +4,7 @@ services:
   - docker
 
 before_install:
+  - cd calc-app
   - docker build -t bouquineuse/calc-app -f Dockerfile.dev .
 
 script:
